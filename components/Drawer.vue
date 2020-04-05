@@ -5,16 +5,24 @@
         right
         v-model="shown"
     >
-        xx
+        Example drawer
   </v-navigation-drawer>
 </template>
 
-<script>
+<script lang="ts">
+import { mapState } from "vuex"
+
 export default {
     data: function() {
         return {
-            shown: true
+            
         }
+    },
+
+    computed: {
+        shown: function() {
+            return this.$store.state.layout.menuDrawer;
+        },
     }
 }
 </script>

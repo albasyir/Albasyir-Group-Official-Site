@@ -3,7 +3,7 @@ export const state = () => {
 }
 
 export const mutations = {
-    toggleDrawer(state : any, forceToggle ?: Boolean) {
+    toggleDrawerMenu(state : any, forceToggle ?: Boolean) {
         state.menuDrawer = !state.menuDrawer 
     }
 }

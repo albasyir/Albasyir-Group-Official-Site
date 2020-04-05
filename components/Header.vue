@@ -27,7 +27,7 @@
           </v-btn>
         </div>
 
-        <v-btn icon @click="openDrawerMenu">
+        <v-btn icon @click="toggleDrawerMenu">
           <v-icon>mdi-dots-vertical-circle</v-icon>
         </v-btn>
       </v-row>
@@ -37,6 +37,7 @@
 
 <script lang="ts">
   import { PropOptions } from 'vue'
+  import { mapMutations } from 'vuex'
 
   export interface link {
     name: String,
@@ -89,9 +90,9 @@
     },
 
     methods: {
-      openDrawerMenu() {
-        this.$store.commit('toggleDrawer');
-      }
+      ...mapMutations({
+        toggleDrawerMenu: 'layout/toggleDrawerMenu'
+      })
     }
   }
 </script>
