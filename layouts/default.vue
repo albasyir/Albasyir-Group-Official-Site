@@ -1,6 +1,7 @@
 <template>
   <v-app dark>
-    <Header color="dark" />
+    <Header />
+    <Drawer />
     <v-content style="height:2000px">
       <v-container>
         <nuxt />
@@ -13,10 +14,10 @@
 <script lang="ts">
   import Header from "@/components/Header.vue"
   import Footer from "@/components/Footer.vue"
-import { mount } from '@vue/test-utils'
+  import Drawer from "@/components/Drawer.vue"
 
   export default {
-    components: { Header, Footer },
+    components: { Header, Footer, Drawer },
 
     mounted() {
       console.log(
