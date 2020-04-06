@@ -10,14 +10,14 @@
         <v-spacer />
 
         <div class="d-flex flex-row">
-          <v-btn 
-            v-for="(link, key) in header.link" 
+          <v-btn
+            v-for="(link, key) in header.link"
             :key="key"
             tile
             depressed
             color="transparent"
             :disabled="!link.ref"
-            :nuxt="true"
+            nuxt
             :to="link.ref"
             v-bind="link.bind"
             height="100%"
@@ -27,7 +27,7 @@
           </v-btn>
         </div>
 
-        <v-btn icon @click="toggleDrawerMenu">
+        <v-btn icon @click="toggleDrawerMenu(true)">
           <v-icon>mdi-dots-vertical-circle</v-icon>
         </v-btn>
       </v-row>
@@ -36,8 +36,7 @@
 </template>
 
 <script lang="ts">
-  import { PropOptions } from 'vue'
-  import { mapMutations } from 'vuex'
+  import { Vue, Prop } from 'nuxt-property-decorator'
 
   export interface link {
     name: String,
@@ -46,53 +45,49 @@
     bind?: Object
   }
 
-  export default {
-    props: {
-      color: { default: "primary" } as PropOptions<String>
-    },
+  export default class Header extends Vue {
+    @Prop({ default: 'primary' }) readonly color : String
 
-    data: function() {
-      return {
-        header: {
-          renderHeaderMenu: true as Boolean,
-          link: [
-            {
-              name: 'Beranda',
-              icon: 'mdi-home',
-              ref: '/'
-            } as link,
-            {
-              name: 'Hosting',
-              icon: 'mdi-server',
-              ref: '/hosting'
-            } as link,
-            {
-              name: 'Treeworks',
-              icon: 'mdi-xml',
-              ref: undefined
-            } as link,
-            {
-              name: 'Shop',
-              icon: 'mdi-shopping',
-              ref: undefined,
-              bind: {
-                class : 'd-none d-sm-flex'
-              }
-            } as link,
-            {
-              name: 'Tim Kami',
-              icon: 'mdi-account-multiple',
-              ref: undefined
-            } as link
-          ]
+    mounted() {
+      console.log(this.$props)
+    }
+
+    header: Object = {
+      renderHeaderMenu: true as Boolean,
+      link: [
+        {
+          name: 'Beranda',
+          icon: 'mdi-home',
+          ref: '/'
+        },
+        {
+          name: 'Hosting',
+          icon: 'mdi-server',
+          ref: '/hosting'
+        },
+        {
+          name: 'Treeworks',
+          icon: 'mdi-xml',
+          ref: undefined
+        },
+        {
+          name: 'Shop',
+          icon: 'mdi-shopping',
+          ref: undefined,
+          bind: {
+            class : 'd-none d-sm-flex'
+          }
+        },
+        {
+          name: 'Tim Kami',
+          icon: 'mdi-account-multiple',
+          ref: undefined
         }
-      }
-    },
+      ] as Array<link>
+    }
 
-    methods: {
-      ...mapMutations({
-        toggleDrawerMenu: 'layout/toggleDrawerMenu'
-      })
+    toggleDrawerMenu() {
+      this.$store.commit('Layout/toggleDrawerMenu')
     }
   }
 </script>

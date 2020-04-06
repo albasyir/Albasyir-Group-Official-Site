@@ -1,7 +1,7 @@
 {
-  "name": "albasyir.id",
+  "name": "albasyir.com",
   "version": "1.0.0",
-  "description": "My official customer landing page and team portfolio&#39;s ",
+  "description": "My official customer landing page and teams portfolio ",
   "author": "Abdul Aziz Al Basyir",
   "private": true,
   "scripts": {
@@ -12,18 +12,21 @@
     "test": "jest"
   },
   "dependencies": {
-    "nuxt": "^2.0.0",
     "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
-    "@nuxtjs/dotenv": "^1.4.0"
+    "nuxt": "^2.0.0",
+    "nuxt-property-decorator": "^2.5.1",
+    "vuex-module-decorators": "^0.16.1"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.0",
+    "@nuxtjs/eslint-config-typescript": "^1.0.2",
     "@nuxtjs/vuetify": "^1.0.0",
     "@vue/test-utils": "^1.0.0-beta.27",
     "babel-jest": "^24.1.0",
     "jest": "^24.1.0",
-    "vue-jest": "^4.0.0-0",
-    "ts-jest": "^25.0.0"
+    "ts-jest": "^25.0.0",
+    "vue-jest": "^4.0.0-0"
   }
 }

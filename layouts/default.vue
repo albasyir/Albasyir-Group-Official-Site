@@ -12,28 +12,35 @@
 </template>
 
 <script lang="ts">
-  import Header from "@/components/Header.vue"
-  import Footer from "@/components/Footer.vue"
-  import Drawer from "@/components/Drawer.vue"
+import { Component, Vue } from 'nuxt-property-decorator'
 
-  export default {
-    components: { Header, Footer, Drawer },
+import Header from "@/components/Header.vue"
+import Footer from "@/components/Footer.vue"
+import Drawer from "@/components/Drawer.vue"
 
-    mounted() {
-      console.log(
-        '%cStop !!!',
-        'font-weight: bold; font-size: 50px;color: red;'
-      );
+@Component({
+  components: { Header, Footer, Drawer }
+})
 
-      console.log(
-        '%cIni adalah fitur browser yang ditujukan untuk developer. Jika seseorang meminta Anda untuk menyalin-menempel sesuatu di sini untuk mengaktifkan fitur Facebook atau "meretas" akun seseorang, ini adalah penipuan dan akan memberikannya akses ke akun Facebook Anda.',
-        'font-weight: bold; font-size: 30px;'
-      );
+class Template extends Vue {
+  mounted() {
+    console.log(
+      '%cStop !!!',
+      'font-weight: bold; font-size: 40px;color: red;'
+    );
 
-      console.log(
-        '%cLihat https://www.facebook.com/selfxss untuk informasi selengkapnya.',
-        'font-weight: bold; font-size: 20px;'
-      );
-    }
+    console.log(
+      '%cIni adalah fitur browser yang ditujukan untuk developer. Jika seseorang meminta Anda untuk menyalin-menempel (Copy Paste) sesuatu di sini untuk mengaktifkan fitur tertentu atau disebut "meretas", ini adalah penipuan dan akan memberikannya akses tertentu yang mengatasnamakan anda.',
+      'font-weight: bold; font-size: 20px;'
+    );
+
+    console.log(
+      '%cLihat https://en.wikipedia.org/wiki/Self-XSS untuk informasi selengkapnya.',
+      'font-weight: bold; font-size: 15px;'
+    );
   }
+}
+
+
+export default Template;
 </script>

@@ -19,10 +19,17 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  /*
-  ** Customize the progress-bar color
-  */
-  loading: { color: '#fff' },
+
+
+  /**
+   *
+   * Loading Settings
+   *
+   */
+  loading: '@/components/Loading.vue',
+  loadingIndicator: '@/components/SPAPripare.html',
+
+
   /*
   ** Global CSS
   */
