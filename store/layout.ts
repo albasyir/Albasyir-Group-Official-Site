@@ -10,6 +10,7 @@ import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
 class Layout extends VuexModule {
   menuDrawer : boolean = false
 
+
   @Mutation toggleDrawerMenu(forceToggle ?: boolean) {
     this.menuDrawer = (forceToggle == undefined)
       ? !this.menuDrawer

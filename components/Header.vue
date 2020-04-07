@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar dark :color="this.$props.color" fixed elevate-on-scroll style="position: sticky">
+  <v-app-bar dark :color="`primary`" fixed elevate-on-scroll style="position: sticky">
     <v-container>
       <v-row>
         <v-toolbar-title class='d-flex flex-row'>
@@ -9,9 +9,9 @@
 
         <v-spacer />
 
-        <div class="d-flex flex-row">
+        <div class="d-flex flex-row" v-if="link_show">
           <v-btn
-            v-for="(link, key) in header.link"
+            v-for="(link, key) in this.$props.link"
             :key="key"
             tile
             depressed
@@ -27,7 +27,11 @@
           </v-btn>
         </div>
 
-        <v-btn icon @click="toggleDrawerMenu(true)">
+        <v-btn
+          v-else
+          icon
+          @click="toggleDrawerMenu(true)"
+        >
           <v-icon>mdi-dots-vertical-circle</v-icon>
         </v-btn>
       </v-row>
@@ -36,55 +40,13 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Prop } from 'nuxt-property-decorator'
+  import { Vue, Prop, Component } from 'nuxt-property-decorator'
 
-  export interface link {
-    name: String,
-    icon: String,
-    ref: String | undefined,
-    bind?: Object
-  }
-
+  @Component
   export default class Header extends Vue {
-    @Prop({ default: 'primary' }) readonly color : String
-
-    mounted() {
-      console.log(this.$props)
-    }
-
-    header: Object = {
-      renderHeaderMenu: true as Boolean,
-      link: [
-        {
-          name: 'Beranda',
-          icon: 'mdi-home',
-          ref: '/'
-        },
-        {
-          name: 'Hosting',
-          icon: 'mdi-server',
-          ref: '/hosting'
-        },
-        {
-          name: 'Treeworks',
-          icon: 'mdi-xml',
-          ref: undefined
-        },
-        {
-          name: 'Shop',
-          icon: 'mdi-shopping',
-          ref: undefined,
-          bind: {
-            class : 'd-none d-sm-flex'
-          }
-        },
-        {
-          name: 'Tim Kami',
-          icon: 'mdi-account-multiple',
-          ref: undefined
-        }
-      ] as Array<link>
-    }
+    @Prop({ default: 'primary' }) color !: String
+    @Prop({ required: true, type: Array }) link !: Object
+    @Prop({ required: true, type: Boolean }) link_show !: Boolean
 
     toggleDrawerMenu() {
       this.$store.commit('Layout/toggleDrawerMenu')

@@ -1,26 +1,33 @@
 <template>
-    <v-navigation-drawer
-        absolute
-        temporary
-        right
-        v-model="shown"
-    >
-        Example drawer
+  <v-navigation-drawer
+      absolute
+      temporary
+      right
+      v-model='shown'
+  >
+      Example drawer
   </v-navigation-drawer>
 </template>
 
 <script lang="ts">
+  import { Vue, Component, Prop } from 'nuxt-property-decorator'
 
-  import Vue from 'vue'
-  import { mapState } from "vuex"
+  @Component
+  export default class Drawer extends Vue {
+    @Prop({ required: true, type: Array }) link !: Object
 
-  export default Vue.extend({
+    get shown() : Boolean {
+      return this.$store.state.Layout.menuDrawer as Boolean
+    }
 
-      data() {
-        return {
+    set shown(newCondition : Boolean) {
 
-        }
-      }
-  })
+      this.$store.commit('Layout/toggleDrawerMenu', newCondition as Boolean);
+    }
 
+    mounted() {
+    }
+  }
 </script>
+
+
