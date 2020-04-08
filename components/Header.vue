@@ -1,5 +1,12 @@
 <template>
-  <v-app-bar dark :color="`primary`" fixed elevate-on-scroll style="position: sticky">
+  <v-app-bar
+    dark
+    :color="`primary`"
+    max-height="80px"
+    height="80px"
+    fixed elevate-on-scroll
+    style="position: sticky"
+  >
     <v-container>
       <v-row>
         <v-toolbar-title class='d-flex flex-row'>

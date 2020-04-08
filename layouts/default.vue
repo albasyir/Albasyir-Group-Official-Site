@@ -1,12 +1,8 @@
 <template>
   <v-app dark>
-    <Header :link="link" :link_show="!mobileMenu" :color="header.color" />
-    <Drawer :link="link" />
-    <v-content style="height:2000px">
-      <v-container>
-        <nuxt />
-      </v-container>
-    </v-content>
+    <Header :link="link" :link_show="!mobileMenu" />
+    <Drawer :link="link" :link_show="mobileMenu" />
+    <nuxt />
     <Footer />
   </v-app>
 </template>
@@ -30,32 +26,25 @@
   })
 
   class Template extends Vue {
-    header: Object = {
-      color: "primary" as String
-    }
-
     link: Array<link> = [
       {
         name: 'Utama',
-        icon: 'mdi-home',
+        icon: 'mdi-home-outline',
         ref: '/'
       },
       {
-        name: 'Hosting',
-        icon: 'mdi-server',
-        ref: '/hosting'
+        name: 'Kinerja',
+        icon: 'mdi-home-outline',
+        ref: '/kinerja'
       },
       {
-        name: 'Treeworks',
-        icon: 'mdi-xml',
-        ref: undefined,
-        bind: {
-          class : 'd-none d-md-flex'
-        }
+        name: 'Solusi',
+        icon: 'mdi-lightbulb-on-outline',
+        ref: '/solusi'
       },
       {
-        name: 'Shop',
-        icon: 'mdi-shopping',
+        name: 'Servis',
+        icon: 'mdi-cog-outline',
         ref: undefined,
         bind: {
           class : 'd-none d-md-flex'
@@ -63,7 +52,7 @@
       },
       {
         name: 'Tim Kami',
-        icon: 'mdi-account-multiple',
+        icon: 'mdi-account-multiple-outline',
         ref: undefined,
         bind: {
           class : 'd-none d-md-flex'
@@ -72,7 +61,7 @@
     ]
 
     get mobileMenu() : Boolean {
-      return this.$vuetify.breakpoint.smAndDown
+      return this.$vuetify.breakpoint.xsOnly
     }
 
     mounted() {

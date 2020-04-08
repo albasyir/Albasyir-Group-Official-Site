@@ -1,11 +1,29 @@
 <template>
   <v-navigation-drawer
-      absolute
-      temporary
-      right
-      v-model='shown'
+    temporary
+    right
+    fixed
+    v-model='shown'
+    tag='v-card'
   >
-      Example drawer
+  <v-list>
+    <v-list-item
+      v-for="(link,key) in $props.link"
+      :key="key"
+      link
+      nuxt
+      :to="link.ref"
+      :disabled="!link.ref"
+    >
+      <v-list-item-icon>
+        <v-icon>{{ link.icon }}</v-icon>
+      </v-list-item-icon>
+
+      <v-list-item-content>
+        <v-list-item-title>{{ link.name }}</v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
+  </v-list>
   </v-navigation-drawer>
 </template>
 
@@ -14,14 +32,15 @@
 
   @Component
   export default class Drawer extends Vue {
+
     @Prop({ required: true, type: Array }) link !: Object
+    @Prop({ type: Boolean }) link_show !: Boolean
 
     get shown() : Boolean {
-      return this.$store.state.Layout.menuDrawer as Boolean
+      return this.$store.state.Layout.menuDrawer && this.$props.link_show  as Boolean
     }
 
     set shown(newCondition : Boolean) {
-
       this.$store.commit('Layout/toggleDrawerMenu', newCondition as Boolean);
     }
 
