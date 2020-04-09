@@ -1,32 +1,52 @@
 <template>
-    <v-navigation-drawer 
-        absolute 
-        temporary 
-        right
-        v-model="shown"
+  <v-navigation-drawer
+    temporary
+    right
+    fixed
+    v-model='shown'
+    tag='v-card'
+  >
+  <v-list>
+    <v-list-item
+      v-for="(link,key) in $props.link"
+      :key="key"
+      link
+      nuxt
+      :to="link.ref"
+      :disabled="!link.ref"
     >
-        Example drawer
+      <v-list-item-icon>
+        <v-icon>{{ link.icon }}</v-icon>
+      </v-list-item-icon>
+
+      <v-list-item-content>
+        <v-list-item-title>{{ link.name }}</v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
+  </v-list>
   </v-navigation-drawer>
 </template>
 
 <script lang="ts">
-import { mapState } from "vuex"
+  import { Vue, Component, Prop } from 'nuxt-property-decorator'
 
-export default {
-    data: function() {
-        return {
-            
-        }
-    },
+  @Component
+  export default class Drawer extends Vue {
 
-    computed: {
-        shown: function() {
-            return this.$store.state.layout.menuDrawer;
-        },
+    @Prop({ required: true, type: Array }) link !: Object
+    @Prop({ type: Boolean }) link_show !: Boolean
+
+    get shown() : Boolean {
+      return this.$store.state.Layout.menuDrawer && this.$props.link_show  as Boolean
     }
-}
+
+    set shown(newCondition : Boolean) {
+      this.$store.commit('Layout/toggleDrawerMenu', newCondition as Boolean);
+    }
+
+    mounted() {
+    }
+  }
 </script>
 
-<style>
 
-</style>
