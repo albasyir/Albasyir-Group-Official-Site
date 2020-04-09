@@ -35,12 +35,12 @@
       {
         name: 'Kinerja',
         icon: 'mdi-home-outline',
-        ref: '/kinerja'
+        ref: undefined
       },
       {
         name: 'Solusi',
         icon: 'mdi-lightbulb-on-outline',
-        ref: '/solusi'
+        ref: undefined
       },
       {
         name: 'Servis',
