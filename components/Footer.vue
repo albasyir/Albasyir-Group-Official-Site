@@ -24,7 +24,8 @@
               </v-col>
               <v-col cols='12' sm='9' class="text-left">
                 <div class='display-1 my-1 font-weight-bold primary--text'>
-                  Gabung menjadi Partner Albasyir
+                  Partner dengan Albasyir
+
                 </div>
                 <div>
                   Albasyir menyediakan pengembangan dan konsultasi terbaik.
@@ -47,22 +48,22 @@
                 Servis
               </div>
               <div class='py-2'>
-                <v-btn 
-                  rounded 
-                  text 
+                <v-btn
+                  rounded
+                  text
                   color="white"
                   nuxt
                   to="/servis/hosting"
                 >
-                  Hosting 
+                  Hosting
                   <v-icon right>mdi-arrow-right</v-icon>
                 </v-btn>
 
                 <br />
 
-                <v-btn 
-                  rounded 
-                  text 
+                <v-btn
+                  rounded
+                  text
                   color="white"
                 >
                   Custom Application
@@ -75,8 +76,8 @@
                 Klien saya yang luar biasa..
               </div>
               <p class='py-2 white--text'>
-                Kami sangat senang melihat hasil kerja kami digunakan dalam Proyek Pribadi, 
-                Aplikasi Perusahaan Besar, Proyek Pemerintah atau di Universitas Bergengsi. 
+                Kami sangat senang melihat hasil kerja kami digunakan dalam Proyek Pribadi,
+                Aplikasi Perusahaan Besar, Proyek Pemerintah atau di Universitas Bergengsi.
               </p>
               <div class="font-weight-bold white--text">
                 Albasyir Group @ 2020
