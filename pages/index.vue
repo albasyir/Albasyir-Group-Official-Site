@@ -1,10 +1,7 @@
 <template>
   <v-content>
-    <v-container>
-      <Slider :slidesData="slides" />
-    </v-container>
+    <Slider :slidesData="slides" />
   </v-content>
-
 </template>
 
 <script lang="ts">

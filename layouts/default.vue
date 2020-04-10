@@ -1,6 +1,6 @@
 <template>
   <v-app ref='app' dark>
-    <Header :link="link" :link_show="!mobileMenu" />
+    <Header :link="link" :link_show="!mobileMenu"  />
     <Drawer :link="link" :link_show="mobileMenu" />
     <nuxt />
     <Footer />
@@ -45,23 +45,24 @@
       {
         name: 'Servis',
         icon: 'mdi-cog-outline',
-        ref: undefined,
-        bind: {
-          class : 'd-none d-md-flex'
-        }
+        ref: undefined
       },
       {
-        name: 'Tim Kami',
-        icon: 'mdi-account-multiple-outline',
-        ref: undefined,
-        bind: {
-          class : 'd-none d-md-flex'
-        }
+        name: 'Tentang Kami',
+        icon: 'mdi-information-outline',
+        ref: '/tentang'
       }
     ]
 
     get mobileMenu() : Boolean {
-      return this.$vuetify.breakpoint.xsOnly
+      return this.$vuetify.breakpoint.smAndDown;
+    }
+
+    get isMobilePhone() : Boolean {
+      return true &&
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+        &&
+        this.$vuetify.breakpoint.xsOnly
     }
 
     beforeCreate() {

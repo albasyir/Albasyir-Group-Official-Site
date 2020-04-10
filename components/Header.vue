@@ -29,8 +29,8 @@
             v-bind="link.bind"
             height="100%"
           >
-            <v-icon>{{ link.icon }}</v-icon>
-            <span> {{ link.name }}</span>
+            <v-icon left>{{ link.icon }}</v-icon>
+            {{ link.name }}
           </v-btn>
         </div>
 

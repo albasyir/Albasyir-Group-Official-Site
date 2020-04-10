@@ -33,28 +33,32 @@
 </style>
 
 <template>
-  <v-row id='slide-container'>
-    <div
-      v-for='(slide_row, key) in slidesData'
-      :key="key"
-      :id='`slide-${key}`'
-      class='d-none fade py-3 col-12'
-      style='opacity: 0'
-    >
-      <div class='slide-title-text blue--text'>
+  <v-container fluid class='primary py-5'>
+    <v-container>
+      <v-row no-gutters id='slide-container'>
         <div
-          v-for="(part_title, key) in slide_row.title.split(' ')"
+          v-for='(slide_row, key) in slidesData'
           :key="key"
+          :id='`slide-${key}`'
+          class='d-none fade py-3 col-12'
+          style='opacity: 0'
         >
-          {{ part_title }}
+          <div class='slide-title-text white--text'>
+            <div
+              v-for="(part_title, key) in slide_row.title.split(' ')"
+              :key="key"
+            >
+              {{ part_title }}
+            </div>
+          </div>
+          <div class='slide-desc-text white--text'>
+            <div class='slide-desc-line white' />
+            {{ slide_row.desc }}
+          </div>
         </div>
-      </div>
-      <div class='slide-desc-text blue--text'>
-        <div class='slide-desc-line primary--bg ' />
-        {{ slide_row.desc }}
-      </div>
-    </div>
-  </v-row>
+      </v-row>
+    </v-container>
+  </v-container>
 </template>
 
 <script>
