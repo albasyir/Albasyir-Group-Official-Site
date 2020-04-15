@@ -35,20 +35,16 @@ import { Vue, Component, Prop } from "nuxt-property-decorator";
 
 @Component
 export default class Drawer extends Vue {
-  @Prop({ required: true, type: Array }) link!: Object;
-  @Prop({ type: Boolean }) link_show!: Boolean;
-  @Prop({ type: Boolean, default: false }) bottom_link!: Boolean;
+  @Prop({ required: true, type: Array }) link !: Object;
+  @Prop({ type: Boolean }) link_show !: Boolean;
+  @Prop({ type: Boolean, default: false }) bottom_link !: Boolean;
 
   get shown(): Boolean {
-    return (
-      this.$store.state.Layout.menuDrawer && (this.$props.link_show as Boolean)
-    );
+    return this.$store.state.layout.Drawer.active && (this.$props.link_show as Boolean);
   }
 
   set shown(newCondition: Boolean) {
-    this.$store.commit("Layout/toggleDrawerMenu", newCondition as Boolean);
+    this.$store.commit('layout/Drawer/toggle', newCondition as Boolean)
   }
-
-  mounted() {}
 }
 </script>

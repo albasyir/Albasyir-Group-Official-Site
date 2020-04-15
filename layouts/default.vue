@@ -29,9 +29,15 @@
     link: Array<link> = [
       {
         name: 'Utama',
-        icon: 'mdi-home-outline',
+        icon: 'mdi-home',
         ref: '/'
       },
+      {
+        name: 'Hosting',
+        icon: 'mdi-server',
+        ref: '/hosting'
+      },
+      /*
       {
         name: 'Kinerja',
         icon: 'mdi-home-outline',
@@ -40,16 +46,17 @@
       {
         name: 'Solusi',
         icon: 'mdi-lightbulb-on-outline',
-        ref: undefined
+        ref: '/solusi'
       },
+      */
       {
         name: 'Servis',
-        icon: 'mdi-cog-outline',
-        ref: undefined
+        icon: 'mdi-cog',
+        ref: '/servis'
       },
       {
-        name: 'Tentang Kami',
-        icon: 'mdi-information-outline',
+        name: 'Tentang',
+        icon: 'mdi-information',
         ref: '/tentang'
       }
     ]

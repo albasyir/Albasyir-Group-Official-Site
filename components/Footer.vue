@@ -2,7 +2,7 @@
   <v-footer
     padless
     color="white"
-    style='padding-top: 160px;'
+    style='padding-top: 130px;'
   >
     <v-row
       no-gutters

@@ -4,6 +4,7 @@
     font-weight: bold;
     margin: 0;
   }
+
   .slide-desc-text {
     position: absolute;
     right: 0;
@@ -12,12 +13,14 @@
     margin-right: 50px;
     font-size: 20pt;
   }
+
   .slide-desc-line {
     position: absolute;
     left: -40px;
     width: 10px;
     height: 140%;
   }
+
   @media screen and (max-width: 950px) {
      .slide-desc-text {
       position: relative;
@@ -25,6 +28,7 @@
       font-size: 20pt;
     }
   }
+
   @media screen and (max-width: 600px) {
     .slide-title-text {
       font-size: 40pt;
@@ -72,7 +76,8 @@ export default {
 
   data: () => ({
     slideActive: null,
-    slideInterval: 5000
+    slideInterval: 5000,
+    timeoutAndInterval: {}
   }),
 
   methods: {
@@ -98,7 +103,7 @@ export default {
 
       let slide = this.activeSlide();
 
-      setTimeout(() => {
+      timeoutAndInterval['mounted'] = setTimeout(() => {
         slide.classList.remove("d-none")
         slide.style.opacity = 1;
       }, 2000)
@@ -110,33 +115,37 @@ export default {
 
       slide.style.opacity = 0;
 
-      await setTimeout(() => {
+      this.timeoutAndInterval['leave'] = await setTimeout(() => {
         slide.classList.add("d-none");
-        console.log('slide on leaved')
       }, 2000)
 
     },
 
     nextSlide() {
       this.leaveSlide()
-        this.slideActive = this.slideActive + 1
-        this.mountSlide()
+      this.slideActive = this.slideActive + 1
+      this.mountSlide()
     }
   },
 
   mounted() {
     if(!this.$props.slidesData) {
-      console.error('Dont want to run slide, because slide data not available')
+      console.error('Slide Text cant be run.., because slide data not available')
       return;
     }
 
     let slide = this.slideStart()
     slide.then(() => { this.mountSlide() })
 
-    setInterval(() => {
+    this.timeoutAndInterval['cyrcle'] = setInterval(() => {
       slide.then(() => { this.nextSlide() })
     }, this.slideInterval)
+  },
 
+  beforeDestroy() {
+    for(waitingList in this.timeoutAndInterval) {
+      console.log(typeof waitingList);
+    }
   }
 
 }

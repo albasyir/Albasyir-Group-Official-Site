@@ -1,7 +1,7 @@
 <template>
   <v-app-bar
-    dark
-    :color="`primary`"
+    :dark="isDarked"
+    :color="headerColor"
     max-height="80px"
     height="80px"
     fixed elevate-on-scroll
@@ -56,7 +56,15 @@
     @Prop({ required: true, type: Boolean }) link_show !: Boolean
 
     toggleDrawerMenu() {
-      this.$store.commit('Layout/toggleDrawerMenu')
+      this.$store.commit('layout/Drawer/toggle')
+    }
+
+    get headerColor() {
+      return this.$store.state.layout.Header.color
+    }
+
+    get isDarked() {
+      return this.$store.state.layout.Header.dark
     }
   }
 </script>
