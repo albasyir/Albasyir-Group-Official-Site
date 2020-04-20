@@ -50,6 +50,7 @@
       height: 100%;
     }
   }
+
   .fixed-all {
     position: fixed;
     top:0;
@@ -62,12 +63,12 @@
 
 <template>
   <div>
-    <transition v-if='loading' name='slide'>
-      <div class='bg-light'></div>
+    <transition v-if='showLoadingBackground' name='layer'>
+      <div class='fixed-all system-bg-white'></div>
     </transition>
 
-    <transition v-if='loading' name='layer'>
-      <div class='fixed-all bg-default'></div>
+    <transition v-if='showLoadingIndicator' name='slide'>
+      <div class='fixed-all system-bg-primary'></div>
     </transition>
   </div>
 </template>
@@ -75,14 +76,22 @@
 <script>
 export default {
   data: () => ({
-    loading: false
+    showLoadingBackground: false,
+    showLoadingIndicator: false
   }),
   methods: {
+
     start() {
-      this.loading = true
+      this.showLoadingBackground = true
+      this.showLoadingIndicator = true
     },
-    finish() {
-      this.loading = false
+
+    async finish() {
+      setTimeout(() => {
+        this.showLoadingBackground = false
+      }, 1000)
+
+      this.showLoadingIndicator = false
     }
   }
 }

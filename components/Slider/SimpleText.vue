@@ -75,17 +75,32 @@ export default {
   },
 
   data: () => ({
+    slideObject: null,
     slideActive: null,
-    slideInterval: 5000,
-    timeoutAndInterval: {}
+    slideInterval: 5000
   }),
 
   methods: {
     slideStart() {
-      return new Promise(resolve => {
-        this.slideActive = 0;
-        resolve(this)
-      })
+      this.slideActive = 0
+
+      this.mountSlide()
+
+      let intervalSlide = setInterval(() => {
+        this.nextSlide()
+      }, this.slideInterval)
+
+      return intervalSlide;
+    },
+
+    mountSlide() {
+
+      let slide = this.activeSlide();
+
+      setTimeout(() => {
+        slide.classList.remove("d-none")
+        slide.style.opacity = 1;
+      }, 2000)
     },
 
     activeSlide() {
@@ -99,23 +114,12 @@ export default {
       return el
     },
 
-    mountSlide() {
-
-      let slide = this.activeSlide();
-
-      timeoutAndInterval['mounted'] = setTimeout(() => {
-        slide.classList.remove("d-none")
-        slide.style.opacity = 1;
-      }, 2000)
-
-    },
-
     async leaveSlide() {
       let slide = this.activeSlide();
 
       slide.style.opacity = 0;
 
-      this.timeoutAndInterval['leave'] = await setTimeout(() => {
+      await setTimeout(() => {
         slide.classList.add("d-none");
       }, 2000)
 
@@ -125,6 +129,10 @@ export default {
       this.leaveSlide()
       this.slideActive = this.slideActive + 1
       this.mountSlide()
+    },
+
+    slideStop() {
+      clearInterval(this.slideObject);
     }
   },
 
@@ -134,18 +142,11 @@ export default {
       return;
     }
 
-    let slide = this.slideStart()
-    slide.then(() => { this.mountSlide() })
-
-    this.timeoutAndInterval['cyrcle'] = setInterval(() => {
-      slide.then(() => { this.nextSlide() })
-    }, this.slideInterval)
+    this.slideObject = this.slideStart()
   },
 
   beforeDestroy() {
-    for(waitingList in this.timeoutAndInterval) {
-      console.log(typeof waitingList);
-    }
+    this.slideStop();
   }
 
 }

@@ -2,10 +2,10 @@
   <v-app-bar
     :dark="isDarked"
     :color="headerColor"
-    max-height="80px"
-    height="80px"
-    fixed elevate-on-scroll
-    style="position: sticky"
+    fixed
+    flat
+    :style="`position: ${position}`"
+    height="100px"
   >
     <v-container>
       <v-row>
@@ -65,6 +65,10 @@
 
     get isDarked() {
       return this.$store.state.layout.Header.dark
+    }
+
+    get position() {
+      return this.$store.state.layout.Header.position
     }
   }
 </script>

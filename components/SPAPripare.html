@@ -67,24 +67,28 @@
         }
       }
 
-      .primary {
-        background-color: #1565C0;
+      .system-bg-primary {
+        background-color: #1565C0 !important;
       }
 
-      .white {
+      .system-bg-primary-darked {
         background-color: #003180 !important;
       }
 
-      .spa-text {
+      .system-bg-white {
+        background-color: white !important;
+      }
+
+      .system-text-white {
         color: white;
       }
     </style>
 
     <div id='spa-loading-container' >
-      <div id='spa-loading-background' class='spa-loading white' />
-      <div id='spa-loading-indicator' class='spa-loading primary' />
+      <div id='spa-loading-background' class='spa-loading system-bg-primary-darked' />
+      <div id='spa-loading-indicator' class='spa-loading system-bg-primary' />
 
-      <span id='spa-loading-text' class='spa-text'>
+      <span id='spa-loading-text' class='spa-text system-text-white'>
         Don't Make Same <br />
         Make Better.
       </span>

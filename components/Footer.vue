@@ -1,6 +1,5 @@
 <template>
   <v-footer
-    padless
     color="white"
     style='padding-top: 130px;'
   >
@@ -25,7 +24,6 @@
               <v-col cols='12' sm='9' class="text-left">
                 <div class='display-1 my-1 font-weight-bold primary--text'>
                   Partner dengan Albasyir
-
                 </div>
                 <div>
                   Albasyir menyediakan pengembangan dan konsultasi terbaik.
@@ -41,39 +39,14 @@
         cols="12"
         class='primary darken-3 py-5'
       >
-        <v-container>
+        <v-container dark>
           <v-row>
             <v-col cols='12' sm='4' md='3'>
-              <div class="headline font-weight-bold white--text">
-                Servis
-              </div>
-              <div class='py-2'>
-                <v-btn
-                  rounded
-                  text
-                  color="white"
-                  nuxt
-                  to="/servis/hosting"
-                >
-                  Hosting
-                  <v-icon right>mdi-arrow-right</v-icon>
-                </v-btn>
-
-                <br />
-
-                <v-btn
-                  rounded
-                  text
-                  color="white"
-                >
-                  Custom Application
-                  <v-icon right>mdi-arrow-right</v-icon>
-                </v-btn>
-              </div>
+              <FindUs class='white--text' />
             </v-col>
             <v-col cols='12' sm='8' md='9'>
               <div class="headline font-weight-bold white--text">
-                Klien saya yang luar biasa..
+                Mitra saya yang luar biasa..
               </div>
               <p class='py-2 white--text'>
                 Kami sangat senang melihat hasil kerja kami digunakan dalam Proyek Pribadi,
@@ -100,9 +73,11 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "nuxt-property-decorator";
+import { Vue, Component } from "nuxt-property-decorator"
 
-@Component
+import FindUs from "@/components/FindUs.vue"
+
+@Component({ components: { FindUs } })
 export default class Footer extends Vue {
 
 }

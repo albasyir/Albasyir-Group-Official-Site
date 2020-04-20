@@ -1,10 +1,10 @@
 <template>
   <v-content>
-    <v-container class='py-5 mt-5'>
-      <v-row class='py-5 mt-5'>
-        <v-col>
-          <div class='py-5'>
-            <h1 class='primary--text display-3 font-weight-bold pt-5 mt-5'>
+    <v-container class='pt-sm-12 pt-7'>
+      <v-row class='pt-sm-12 pt-7'>
+        <v-col class='pt-sm-12 pt-7'>
+          <div class='py-3'>
+            <h1 class='primary--text display-3 font-weight-bold'>
               Kami membuat digitalisasi.
             </h1>
             <div class='display-3 font-weight-bold'>
@@ -26,8 +26,20 @@
 <script lang="ts">
 import { Vue, Component } from "nuxt-property-decorator";
 
-@Component
+@Component({
+  head: { title: "Servis" }
+})
 export default class service extends Vue {
+  mounted() {
+    let store = this.$store
+    store.commit('layout/Header/setBackgroundColor', "white")
+    store.commit('layout/Header/setDarkMode', false)
+  }
 
+  beforeDestroy() {
+    let store = this.$store
+    store.commit('layout/Header/setBackgroundColor')
+    store.commit('layout/Header/setDarkMode')
+  }
 }
 </script>
