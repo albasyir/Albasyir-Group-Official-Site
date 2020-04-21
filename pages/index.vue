@@ -4,7 +4,7 @@
   </v-content>
 </template>
 
-<script lang="ts">
+<script>
 import Slider from '@/components/Slider/SimpleText.vue'
 
 export default {

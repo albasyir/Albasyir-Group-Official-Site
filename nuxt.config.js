@@ -150,7 +150,6 @@ export default {
    *
    */
   build: {
-    vendor: ['nuxt-property-decorator'],
     /**
      *
      * You can extend webpack config here
