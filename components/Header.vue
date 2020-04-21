@@ -1,17 +1,17 @@
 <template>
   <v-app-bar
-    dark
-    :color="`primary`"
-    max-height="80px"
-    height="80px"
-    fixed elevate-on-scroll
-    style="position: sticky"
+    :dark="isDarked"
+    :color="headerColor"
+    fixed
+    flat
+    :style="`position: ${position}`"
+    height="100px"
   >
     <v-container>
       <v-row>
         <v-toolbar-title class='d-flex flex-row'>
             <v-img src="/icon.png" height="45px" width="45px" />
-            <span class='py-2 pl-2 headline'>Albasyir Group</span>
+            <span class='py-2 pl-2 headline'>Albasyir</span>
         </v-toolbar-title>
 
         <v-spacer />
@@ -29,8 +29,8 @@
             v-bind="link.bind"
             height="100%"
           >
-            <v-icon>{{ link.icon }}</v-icon>
-            <span> {{ link.name }}</span>
+            <v-icon left>{{ link.icon }}</v-icon>
+            {{ link.name }}
           </v-btn>
         </div>
 
@@ -56,7 +56,19 @@
     @Prop({ required: true, type: Boolean }) link_show !: Boolean
 
     toggleDrawerMenu() {
-      this.$store.commit('Layout/toggleDrawerMenu')
+      this.$store.commit('layout/Drawer/toggle')
+    }
+
+    get headerColor() {
+      return this.$store.state.layout.Header.color
+    }
+
+    get isDarked() {
+      return this.$store.state.layout.Header.dark
+    }
+
+    get position() {
+      return this.$store.state.layout.Header.position
     }
   }
 </script>

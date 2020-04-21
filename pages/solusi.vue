@@ -22,11 +22,11 @@
             Solusi lengkap dari awal hingga akhir untuk logistik apapun. aplikasi mobile dan portal web responsif.
           </h3>
           <p class='font-weight-bold py-2'>
-            Menerima Kiriman atau sewa gudang, membuat surat jalan plus menerima pembaruan status waktu-nyata dari apa yang sedang terjadi. 
+            Menerima Kiriman atau sewa gudang, membuat surat jalan plus menerima pembaruan status waktu-nyata dari apa yang sedang terjadi.
             Pantau dan amati semua aktivitas melalui dasbor yang dapat disesuaikan sepenuhnya dan data statistik yang dikumpulkan untuk memberikan nilai lebih bagi bisnis dan pelanggan Anda.
           </p>
           <p class='font-weight-bold py-2'>
-            Akan lebih banyak detail untuk semua yang kami tampilkan di atas, 
+            Akan lebih banyak detail untuk semua yang kami tampilkan di atas,
             bicaralah kepada kami hari ini untuk melihat bagaimana kami dapat berbagi solusi dengan Anda
           </p>
         </v-col>

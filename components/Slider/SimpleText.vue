@@ -4,6 +4,7 @@
     font-weight: bold;
     margin: 0;
   }
+
   .slide-desc-text {
     position: absolute;
     right: 0;
@@ -12,12 +13,14 @@
     margin-right: 50px;
     font-size: 20pt;
   }
+
   .slide-desc-line {
     position: absolute;
     left: -40px;
     width: 10px;
     height: 140%;
   }
+
   @media screen and (max-width: 950px) {
      .slide-desc-text {
       position: relative;
@@ -25,6 +28,7 @@
       font-size: 20pt;
     }
   }
+
   @media screen and (max-width: 600px) {
     .slide-title-text {
       font-size: 40pt;
@@ -33,28 +37,32 @@
 </style>
 
 <template>
-  <v-row id='slide-container'>
-    <div
-      v-for='(slide_row, key) in slidesData'
-      :key="key"
-      :id='`slide-${key}`'
-      class='d-none fade py-3 col-12'
-      style='opacity: 0'
-    >
-      <div class='slide-title-text blue--text'>
+  <v-container fluid class='primary py-5'>
+    <v-container>
+      <v-row no-gutters id='slide-container'>
         <div
-          v-for="(part_title, key) in slide_row.title.split(' ')"
+          v-for='(slide_row, key) in slidesData'
           :key="key"
+          :id='`slide-${key}`'
+          class='d-none fade py-3 col-12'
+          style='opacity: 0'
         >
-          {{ part_title }}
+          <div class='slide-title-text white--text'>
+            <div
+              v-for="(part_title, key) in slide_row.title.split(' ')"
+              :key="key"
+            >
+              {{ part_title }}
+            </div>
+          </div>
+          <div class='slide-desc-text white--text'>
+            <div class='slide-desc-line white' />
+            {{ slide_row.desc }}
+          </div>
         </div>
-      </div>
-      <div class='slide-desc-text blue--text'>
-        <div class='slide-desc-line primary--bg ' />
-        {{ slide_row.desc }}
-      </div>
-    </div>
-  </v-row>
+      </v-row>
+    </v-container>
+  </v-container>
 </template>
 
 <script>
@@ -67,16 +75,32 @@ export default {
   },
 
   data: () => ({
+    slideObject: null,
     slideActive: null,
     slideInterval: 5000
   }),
 
   methods: {
     slideStart() {
-      return new Promise(resolve => {
-        this.slideActive = 0;
-        resolve(this)
-      })
+      this.slideActive = 0
+
+      this.mountSlide()
+
+      let intervalSlide = setInterval(() => {
+        this.nextSlide()
+      }, this.slideInterval)
+
+      return intervalSlide;
+    },
+
+    mountSlide() {
+
+      let slide = this.activeSlide();
+
+      setTimeout(() => {
+        slide.classList.remove("d-none")
+        slide.style.opacity = 1;
+      }, 2000)
     },
 
     activeSlide() {
@@ -90,17 +114,6 @@ export default {
       return el
     },
 
-    mountSlide() {
-
-      let slide = this.activeSlide();
-
-      setTimeout(() => {
-        slide.classList.remove("d-none")
-        slide.style.opacity = 1;
-      }, 2000)
-
-    },
-
     async leaveSlide() {
       let slide = this.activeSlide();
 
@@ -108,31 +121,32 @@ export default {
 
       await setTimeout(() => {
         slide.classList.add("d-none");
-        console.log('slide on leaved')
       }, 2000)
 
     },
 
     nextSlide() {
       this.leaveSlide()
-        this.slideActive = this.slideActive + 1
-        this.mountSlide()
+      this.slideActive = this.slideActive + 1
+      this.mountSlide()
+    },
+
+    slideStop() {
+      clearInterval(this.slideObject);
     }
   },
 
   mounted() {
     if(!this.$props.slidesData) {
-      console.error('Dont want to run slide, because slide data not available')
+      console.error('Slide Text cant be run.., because slide data not available')
       return;
     }
 
-    let slide = this.slideStart()
-    slide.then(() => { this.mountSlide() })
+    this.slideObject = this.slideStart()
+  },
 
-    setInterval(() => {
-      slide.then(() => { this.nextSlide() })
-    }, this.slideInterval)
-
+  beforeDestroy() {
+    this.slideStop();
   }
 
 }

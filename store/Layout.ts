@@ -16,10 +16,6 @@ class Layout extends VuexModule {
       ? !this.menuDrawer
       : forceToggle
   }
-
-  get menuDrawerData() {
-    return this.menuDrawer
-  }
 }
 
 export default Layout;

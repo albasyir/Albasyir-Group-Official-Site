@@ -3,22 +3,58 @@ import colors from 'vuetify/es5/util/colors'
 require('dotenv').config()
 
 export default {
+  /**
+   *
+   * Development Serve Config
+   *
+   */
+  server: {
+    port: 3000, // default: 3000
+    host: '0.0.0.0', // default: localhost
+  },
+
+
+  /**
+   *
+   * Custom Router
+   *
+   */
+  router: {
+    extendRoutes (routes, resolve) {
+      routes.push({
+        name: '404',
+        path: '*',
+        component: resolve(__dirname, 'pages/error/PageNotFound.vue')
+      })
+    }
+  },
+
+  /**
+   *
+   * Page mode config
+   *
+   */
   mode: 'spa',
-  /*
-  ** Headers of the page
-  */
+
+
+  /**
+   *
+   * Header page config
+   *
+   */
   head: {
-    titleTemplate: '%s - ' + process.env.APP_NAME,
-    title: "We Are Your Partner",
+    titleTemplate: '%s - Albasyir Group',
+    title: "Partner IT Anda",
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { hid: 'description', name: 'description', content: "Kami adalah konsultan, pembuat, peracang kebutuhan IT perusahaan anda" }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/png', href: '/icon.png' }
     ]
   },
+
 
 
   /**
@@ -30,44 +66,65 @@ export default {
   loadingIndicator: '@/components/SPAPripare.html',
 
 
-  /*
-  ** Global CSS
-  */
+  /**
+   *
+   * Global CSS
+   *
+   */
   css: [
   ],
-  /*
-  ** Plugins to load before mounting the App
-  */
+
+
+  /**
+   *
+   * Plugin
+   *
+   */
   plugins: [
   ],
-  /*
-  ** Nuxt.js dev-modules
-  */
+
+
+  /**
+   *
+   * Nuxt.js dev-modules
+   *
+   */
   buildModules: [
     '@nuxt/typescript-build',
     '@nuxtjs/vuetify',
   ],
-  /*
-  ** Nuxt.js modules
-  */
+
+
+  /**
+   *
+   * Nuxt.js modules
+   *
+   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+
     '@nuxtjs/pwa',
+
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
   ],
-  /*
-  ** Axios module configuration
-  ** See https://axios.nuxtjs.org/options
-  */
+
+  /**
+   *
+   * Axios module configuration
+   * See https://axios.nuxtjs.org/options
+   *
+   */
   axios: {
   },
-  /*
-  ** vuetify module configuration
-  ** https://github.com/nuxt-community/vuetify-module
-  */
 
+  /**
+   *
+   * vuetify module configuration
+   * https://github.com/nuxt-community/vuetify-module
+   *
+   */
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
@@ -85,13 +142,19 @@ export default {
       }
     }
   },
-  /*
-  ** Build configuration
-  */
+
+
+  /**
+   *
+   * Build configuration
+   *
+   */
   build: {
-    /*
-    ** You can extend webpack config here
-    */
+    /**
+     *
+     * You can extend webpack config here
+     *
+     */
     extend (config, ctx) {
     }
   }

@@ -1,6 +1,6 @@
 <template>
-  <v-app dark>
-    <Header :link="link" :link_show="!mobileMenu" />
+  <v-app ref='app' dark>
+    <Header :link="link" :link_show="!mobileMenu"  />
     <Drawer :link="link" :link_show="mobileMenu" />
     <nuxt />
     <Footer />
@@ -29,9 +29,15 @@
     link: Array<link> = [
       {
         name: 'Utama',
-        icon: 'mdi-home-outline',
+        icon: 'mdi-home',
         ref: '/'
       },
+      {
+        name: 'Hosting',
+        icon: 'mdi-server',
+        ref: '/hosting'
+      },
+      /*
       {
         name: 'Kinerja',
         icon: 'mdi-home-outline',
@@ -40,31 +46,52 @@
       {
         name: 'Solusi',
         icon: 'mdi-lightbulb-on-outline',
-        ref: undefined
+        ref: '/solusi'
       },
+      */
       {
         name: 'Servis',
-        icon: 'mdi-cog-outline',
-        ref: undefined,
-        bind: {
-          class : 'd-none d-md-flex'
-        }
+        icon: 'mdi-cog',
+        ref: '/servis'
       },
       {
-        name: 'Tim Kami',
-        icon: 'mdi-account-multiple-outline',
-        ref: undefined,
-        bind: {
-          class : 'd-none d-md-flex'
-        }
+        name: 'Tentang',
+        icon: 'mdi-information',
+        ref: '/tentang'
       }
     ]
 
     get mobileMenu() : Boolean {
-      return this.$vuetify.breakpoint.xsOnly
+      return this.$vuetify.breakpoint.smAndDown;
+    }
+
+    get isMobilePhone() : Boolean {
+      return true &&
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+        &&
+        this.$vuetify.breakpoint.xsOnly
+    }
+
+    beforeCreate() {
+      let loading_indecator = document.getElementById('spa-loading-indicator')!;
+      let loading_length = loading_indecator!.offsetWidth;
+
+      document.body.appendChild(document.getElementById('spa-loading-content')!);
+
+      document.getElementById('spa-loading-indicator')!.style.width = loading_length + "px";
     }
 
     mounted() {
+      console.log(new Date());
+      setTimeout(() => {
+        document.getElementById('spa-loading-indicator')!.style.width = "100%";
+      }, 1)
+
+      setTimeout(() => {
+        document.getElementById('spa-loading-container')!.style.opacity = "0";
+        document.getElementById('spa-loading-text')!.style.opacity = "0";
+      }, 2500);
+
       console.log(
         '%cStop !!!',
         'font-weight: bold; font-size: 40px;color: red;'
