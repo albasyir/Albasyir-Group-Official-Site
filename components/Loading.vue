@@ -75,6 +75,7 @@
 
 <script>
 export default {
+  name: 'Loading',
   data: () => ({
     showLoadingBackground: false,
     showLoadingIndicator: false

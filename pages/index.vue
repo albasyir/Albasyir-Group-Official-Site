@@ -8,6 +8,7 @@
 import Slider from '@/components/Slider/SimpleText.vue'
 
 export default {
+  name: 'LandingPage',
   data: function() {
     return {
       slides: [
