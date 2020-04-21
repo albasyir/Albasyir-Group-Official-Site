@@ -65,76 +65,82 @@
   </v-container>
 </template>
 
-<script>
-export default {
-  props: {
-    slidesData: {
-      type: Array,
-      require: true
+<script lang="ts">
+import { Vue, Component, Prop } from 'nuxt-property-decorator'
+
+@Component
+export default class SimpleText extends Vue {
+  @Prop({ type: Array, required: true }) slidesData !: Array<Object>
+
+  slideObject : any =  null
+  slideActive : any = null
+  slideInterval : any = 5000
+
+
+
+  slideStart() {
+    this.slideActive = 0
+
+    this.mountSlide()
+
+    let intervalSlide = setInterval(() => {
+      this.nextSlide()
+    }, this.slideInterval)
+
+    return intervalSlide;
+  }
+
+
+
+  mountSlide() {
+
+    let slide = this.activeSlide();
+
+    setTimeout(() => {
+      slide?.classList.remove("d-none")
+      slide.style.opacity = 1;
+    }, 2000)
+  }
+
+
+
+  activeSlide() {
+    let el = document.getElementById(`slide-${this.slideActive}`)
+
+    if(!el) {
+      this.slideActive = 0;
+      el = document.getElementById(`slide-${this.slideActive}`)
     }
-  },
 
-  data: () => ({
-    slideObject: null,
-    slideActive: null,
-    slideInterval: 5000
-  }),
+    return el
+  }
 
-  methods: {
-    slideStart() {
-      this.slideActive = 0
 
-      this.mountSlide()
 
-      let intervalSlide = setInterval(() => {
-        this.nextSlide()
-      }, this.slideInterval)
+  async leaveSlide() {
+    let slide = this.activeSlide();
 
-      return intervalSlide;
-    },
+    slide.style.opacity = 0;
 
-    mountSlide() {
+    await setTimeout(() => {
+      slide?.classList.add("d-none");
+    }, 2000)
 
-      let slide = this.activeSlide();
+  }
 
-      setTimeout(() => {
-        slide.classList.remove("d-none")
-        slide.style.opacity = 1;
-      }, 2000)
-    },
 
-    activeSlide() {
-      let el = document.getElementById(`slide-${this.slideActive}`)
 
-      if(!el) {
-        this.slideActive = 0;
-        el = document.getElementById(`slide-${this.slideActive}`)
-      }
+  nextSlide() {
+    this.leaveSlide()
+    this.slideActive = this.slideActive + 1
+    this.mountSlide()
+  }
 
-      return el
-    },
+  slideStop() {
+    clearInterval(this.slideObject);
+  }
 
-    async leaveSlide() {
-      let slide = this.activeSlide();
 
-      slide.style.opacity = 0;
-
-      await setTimeout(() => {
-        slide.classList.add("d-none");
-      }, 2000)
-
-    },
-
-    nextSlide() {
-      this.leaveSlide()
-      this.slideActive = this.slideActive + 1
-      this.mountSlide()
-    },
-
-    slideStop() {
-      clearInterval(this.slideObject);
-    }
-  },
 
   mounted() {
     if(!this.$props.slidesData) {
@@ -143,11 +149,12 @@ export default {
     }
 
     this.slideObject = this.slideStart()
-  },
+  }
+
+
 
   beforeDestroy() {
     this.slideStop();
   }
-
 }
 </script>
