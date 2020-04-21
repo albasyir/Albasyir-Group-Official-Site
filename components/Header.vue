@@ -10,8 +10,8 @@
     <v-container>
       <v-row>
         <v-toolbar-title class='d-flex flex-row'>
-            <v-img src="/icon.png" height="45px" width="45px" />
-            <span class='py-2 pl-2 headline'>Albasyir</span>
+          <v-img src="/icon.png" height="45px" width="45px" />
+          <span class='py-2 pl-2 headline'>Albasyir</span>
         </v-toolbar-title>
 
         <v-spacer />
