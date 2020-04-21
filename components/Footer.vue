@@ -2,6 +2,7 @@
   <v-footer
     color="white"
     style='padding-top: 130px;'
+    class='mt-12'
   >
     <v-row
       no-gutters
