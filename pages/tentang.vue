@@ -45,6 +45,7 @@
                 flat
                 tile
                 :width="FindUsInMobile ? '100%' : `33.3%`"
+                class='my-2'
               >
                 <v-img
                   class="white--text align-end"
