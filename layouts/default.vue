@@ -24,7 +24,6 @@ interface link {
 @Component({
   components: { Header, Footer, Drawer }
 })
-
 export default class Template extends Vue {
   link: Array<link> = [
     {
