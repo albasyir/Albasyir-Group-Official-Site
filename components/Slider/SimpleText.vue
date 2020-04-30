@@ -1,54 +1,70 @@
-<style scoped>
-  .slide-title-text {
-    font-size: 70pt;
-    font-weight: bold;
-    margin: 0;
-  }
+<style>
+.typed-cursor {
+  font-size: 70pt !important;
+}
 
+#slide-container {
+  height: 90vh;
+}
+
+#slide_title_text {
+  font-size: 70pt !important;
+  font-weight: bold;
+  margin: 0;
+}
+
+.slide-desc {
+  position: absolute;
+  right: 0px;
+  bottom: 0;
+  width: 300px;
+  margin-right: 80px;
+  font-size: 20pt;
+}
+
+.slide-desc-line {
+  position: absolute;
+  left: -40px;
+  width: 10px;
+  height: 140%;
+}
+
+@media screen and (max-width: 950px) {
   .slide-desc {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 300px;
-    margin-right: 50px;
+    position: relative;
+    width: 100%;
     font-size: 20pt;
   }
+}
 
-  .slide-desc-line {
-    position: absolute;
-    left: -40px;
-    width: 10px;
-    height: 140%;
+@media screen and (max-width: 600px) {
+  #slide_title_text {
+    font-size: 40pt !important;
   }
 
-  @media screen and (max-width: 950px) {
-     .slide-desc {
-      position: relative;
-      width: 100%;
-      font-size: 20pt;
-    }
+  .typed-cursor {
+    font-size: 40pt !important;
   }
 
-  @media screen and (max-width: 600px) {
-    .slide-title-text {
-      font-size: 40pt;
-    }
+  #slide-container {
+    height: 65vh;
   }
+}
 </style>
 
 <template>
-  <v-container fluid class='primary py-5'>
+  <v-container id="slide-container" fluid class="primary py-5">
     <v-container>
-      <v-row no-gutters id='slide-container'>
-        <div
-          class='d-none fade py-3 col-12'
-        >
-          <div class='slide-title-text white--text' ref="slideTitle">
-            <!-- TEXT TITILE HERE -->
+      <v-row no-gutters id="slide-container">
+        <div class="fade py-3 col-12">
+          <div class="white--text">
+            <span id="slide_title_text">
+              <!-- TEXT TITILE HERE -->
+            </span>
           </div>
-          <div class='slide-desc white--text'>
-            <div class='slide-desc-line white' />
-            <div class='slide-desc-text' ref="slideDesc">
+          <div class="slide-desc white--text">
+            <div class="slide-desc-line white" />
+            <div class="slide-desc-text" ref="slideDesc">
               <!-- TEXT DESC HERE -->
             </div>
           </div>
@@ -59,8 +75,9 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Ref } from 'nuxt-property-decorator'
-import Typer from "typer-js"
+import { Vue, Component, Prop, Ref } from "nuxt-property-decorator";
+
+import Typed from "typed.js";
 
 /**
  * interface for each TextSlide Data
@@ -69,12 +86,12 @@ export interface TextSlideInterface {
   /**
    * Slide description
    */
-  desc: String,
+  desc: string;
 
   /**
    * Slide title
    */
-  title: String
+  title: string;
 }
 
 /**
@@ -84,26 +101,27 @@ export interface ArrayTextSlideInterface {
   /**
    * Array of TextSlide TextSlideInterface Data
    */
-  [index : number] : TextSlideInterface
+  [index: number]: TextSlideInterface;
 }
 
 @Component
 export default class TextSlide extends Vue {
   // slideData texting, remember with interface
-  @Prop({ type: Array, required: true }) slidesData !: ArrayTextSlideInterface
+  @Prop({ type: Array, required: true }) slidesData!: ArrayTextSlideInterface;
+
+  @Ref("slideDesc") readonly descEl!: HTMLElement;
 
   /**
    * Slide Configuration
    */
-  slideActive : number = 0 // start from ?
-  slideInterval : number = 5000 // what is interval each slide ?
-
+  slideActive: number = 0; // start from ?
+  slideInterval: number = 7000; // what is interval each slide ?
 
   /**
    * object can be use for intervalTimeObject
    */
-  slideObjectInterval : ReturnType<typeof setTimeout> | undefined;
-
+  slideObjectInterval: ReturnType<typeof setTimeout> | undefined;
+  slideTypedTitle: Typed | undefined;
 
   /**
    * Start this slide
@@ -115,16 +133,15 @@ export default class TextSlide extends Vue {
    *   4. next slide
    *
    */
-  slideStart() : void {
+  slideStart(): void {
     // stop
-    this.slideStop()
+    this.slideStop();
 
-    this.mountSlide()
+    this.mountSlide();
 
     this.slideObjectInterval = setInterval(() => {
-
-      this.nextSlide()
-    }, this.slideInterval)
+      this.nextSlide();
+    }, this.slideInterval);
   }
 
   /**
@@ -137,42 +154,52 @@ export default class TextSlide extends Vue {
    */
   nextSlide() {
     // leave active slide
-    this.leaveSlide()
+    this.leaveSlide();
 
-    // next index of slide
-    this.slideActive = this.slideActive + 1
+    this.slideActive = this.slideActive + 1;
 
     // mount new slide
-    this.mountSlide()
+    this.mountSlide();
   }
-
 
   /**
    *
    *
    */
   mountSlide() {
-    let data : TextSlideInterface = this.slidesData[this.slideActive];
-  }
+    //
+    let data: TextSlideInterface = this.slidesData[this.slideActive];
 
+    // if slide data not found then we reset slide active and try get data with index 0
+    if (!data) {
+      this.slideActive = 0;
+      data = this.slidesData[this.slideActive];
+    }
+
+    this.slideTypedTitle = new Typed("#slide_title_text", {
+      typeSpeed: 30,
+      strings: [data.title.split(" ").join("<br />")]
+    });
+
+    this.descEl.innerHTML = data.desc as string;
+  }
 
   /**
    *
    *
    */
   async leaveSlide() {
-
+    this.slideTypedTitle!.stop();
+    this.slideTypedTitle!.destroy();
   }
-
 
   /**
    *
    *
    */
   slideStop() {
-    clearInterval(this.slideObjectInterval!) // use ! because interval can be nullable
+    clearInterval(this.slideObjectInterval!); // use ! because interval can be nullable
   }
-
 
   /**
    *
@@ -181,7 +208,6 @@ export default class TextSlide extends Vue {
   mounted() {
     this.slideStart();
   }
-
 
   /**
    *
