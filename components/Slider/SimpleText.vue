@@ -4,13 +4,15 @@
 }
 
 #slide-container {
-  height: 90vh;
+  min-height: 100vh;
 }
 
 #slide_title_text {
   font-size: 70pt !important;
   font-weight: bold;
   margin: 0;
+  line-height: 1.3;
+  padding: 10px 0;
 }
 
 .slide-desc {
@@ -20,13 +22,15 @@
   width: 300px;
   margin-right: 80px;
   font-size: 20pt;
+  padding: 10px 0;
 }
 
 .slide-desc-line {
   position: absolute;
   left: -40px;
   width: 10px;
-  height: 140%;
+  height: 100%;
+  bottom: 0;
 }
 
 @media screen and (max-width: 950px) {
@@ -34,6 +38,13 @@
     position: relative;
     width: 100%;
     font-size: 20pt;
+  }
+
+  .slide-desc-line {
+    left: 0px;
+    bottom: 0;
+    width: 100%;
+    height: 10px;
   }
 }
 
@@ -45,32 +56,26 @@
   .typed-cursor {
     font-size: 40pt !important;
   }
-
-  #slide-container {
-    height: 65vh;
-  }
 }
 </style>
 
 <template>
-  <v-container id="slide-container" fluid class="primary py-5">
-    <v-container>
-      <v-row no-gutters id="slide-container">
-        <div class="fade py-3 col-12">
-          <div class="white--text">
-            <span id="slide_title_text">
-              <!-- TEXT TITILE HERE -->
-            </span>
-          </div>
-          <div class="slide-desc white--text">
-            <div class="slide-desc-line white" />
-            <div class="slide-desc-text" ref="slideDesc">
-              <!-- TEXT DESC HERE -->
-            </div>
+  <v-container class="pa-0" style="position: relative">
+    <v-row no-gutters id="slide-container">
+      <div class="fade col-12 pt-12">
+        <div class="white--text pt-12">
+          <span id="slide_title_text">
+            <!-- TEXT TITILE HERE -->
+          </span>
+        </div>
+        <div class="slide-desc white--text">
+          <div class="slide-desc-line white" />
+          <div class="slide-desc-text" ref="slideDesc">
+            <!-- TEXT DESC HERE -->
           </div>
         </div>
-      </v-row>
-    </v-container>
+      </div>
+    </v-row>
   </v-container>
 </template>
 
