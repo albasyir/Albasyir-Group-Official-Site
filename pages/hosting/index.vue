@@ -16,19 +16,73 @@
               </span>
             </p>
 
-            <cart>
-              <template v-slot:activator="{ on }">
-                <v-btn v-on="on" tile x-large color="lime">
-                  <v-icon left>mdi-cart</v-icon>Order Sekarang
-                </v-btn>
-              </template>
-            </cart>
-
+            <v-btn @click="toogleCard" tile x-large color="lime">
+              <v-icon left>mdi-cart</v-icon>Order Sekarang
+            </v-btn>
           </v-col>
           <v-col cols="12" lg="6" md="7">
-            <v-img class="my-3" height="90%" src="/illustration/to_the_moon.svg" />
+            <v-img class="my-3" contain height="90%" src="/illustration/to_the_moon.svg" />
           </v-col>
         </v-row>
+      </v-container>
+    </v-container>
+
+    <v-container fluid class="py-3 primary darken-4">
+      <v-container>
+        <div class="text-center white--text">
+          <h2 class="display-3 mb-2">Layanan Kami</h2>
+          <p class="headline font-weight-bold">Semua ada di tangan anda</p>
+        </div>
+        <div class="d-flex align-stretch justify-space-between align-content-center flex-wrap">
+          <v-card class="mx-auto pa-1" max-width="250">
+            <v-img height="180" contain src="/illustration/get_start.svg"></v-img>
+
+            <v-card-title>Unlimited Hosting</v-card-title>
+            <v-card-text>Cocok untuk web sekala kecil dan menegah</v-card-text>
+
+            <v-card-actions>
+              <v-btn class="ml-auto" color="lime" flat>
+                <v-icon left>mdi-cart</v-icon>Pesan
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+          <v-card class="mx-auto pa-1" max-width="250">
+            <v-img height="180" contain src="/illustration/outer_space.svg"></v-img>
+
+            <v-card-title>Cloud Hosting</v-card-title>
+            <v-card-text>Kapasitas tinggi dan kelolah penuh dengan mudah</v-card-text>
+
+            <v-card-actions>
+              <v-btn class="ml-auto" color="lime" flat>
+                <v-icon left>mdi-cart</v-icon>Pesan
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+          <v-card class="mx-auto pa-1" max-width="250">
+            <v-img height="180" contain src="/illustration/launch_day.svg"></v-img>
+
+            <v-card-title>VPS Hosting</v-card-title>
+            <v-card-text>Dedicated dengan akses root dan konfigurasi mandiri</v-card-text>
+
+            <v-card-actions>
+              <v-btn class="ml-auto" color="lime" flat>
+                <v-icon left>mdi-cart</v-icon>Pesan
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+          <v-card class="mx-auto pa-1" max-width="250">
+            <v-img height="180" contain src="/illustration/envelope.svg"></v-img>
+
+            <v-card-title>Mail Hosting</v-card-title>
+            <v-card-text>Email khusus dengan @domain_anda.com untuk meningkatkan kepercayaan pelanggan dan branding</v-card-text>
+
+            <v-card-actions>
+              <v-btn class="ml-auto" color="lime" flat>
+                <v-icon left>mdi-cart</v-icon>Pesan
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </div>
       </v-container>
     </v-container>
 
@@ -39,23 +93,23 @@
           <p class="headline font-weight-bold">Alasanya cukup sederhana</p>
         </div>
         <v-row class="py-5">
-          <v-col cols="12" md="6" lg="4">
+          <v-col cols="12" sm="6">
             <list-card
-              index="1"
+              :index="1"
               title="Hosting Super Cepat"
               desc="Pengunjung tidak suka website lambat. Dengan dukungan LiteSpeed Web Server, waktu loading website Anda akan meningkat pesat."
             />
           </v-col>
-          <v-col cols="12" md="6" lg="4">
+          <v-col cols="12" sm="6">
             <list-card
-              index="2"
+              :index="2"
               title="Keamanan Website Ekstra"
               desc="Teknologi keamanan Imunify 360 memungkinkan website Anda terlindung dari serangan hacker, malware, dan virus berbahaya setiap saat."
             />
           </v-col>
-          <v-col cols="12" md="12" lg="4">
+          <v-col cols="12" sm="12">
             <list-card
-              index="3"
+              :index="3"
               title="Biaya Hemat, Kualitas Hebat"
               desc="Anda bisa berhemat dan tetap mendapatkan hosting terbaik dengan fitur lengkap, dari auto install WordPress, cPanel lengkap, hingga SSL gratis."
             />
@@ -63,17 +117,13 @@
         </v-row>
       </v-container>
     </v-container>
-      <v-container class="pt-10" fluid>
-        <center>
-          <cart>
-            <template v-slot:activator="{ on }">
-              <v-btn v-on="on" tile x-large color="lime">
-                <v-icon left>mdi-cart</v-icon>Order Sekarang
-              </v-btn>
-            </template>
-          </cart>
-        </center>
-      </v-container>
+
+    <v-container class="pt-10" fluid>
+      <center>
+        <v-btn @click="toogleCard" tile x-large color="lime">
+          <v-icon left>mdi-cart</v-icon>Order Sekarang
+        </v-btn>
+      </center>
     </v-container>
   </v-content>
 </template>
@@ -87,9 +137,13 @@ import ListCard from "@/components/Hosting/ListCard.vue";
 import Typed from "typed.js";
 
 @Component({
-  components: { Cart, ListCard }
+  components: { ListCard }
 })
 export default class HostingIndex extends Vue {
+  toogleCard(newCondition: boolean) {
+    this.$store.commit("hosting/Cart/toggle", newCondition);
+  }
+
   mounted() {
     new Typed("#landing_title", {
       strings: ["", "Hosting Terbaik Dari Kami"],

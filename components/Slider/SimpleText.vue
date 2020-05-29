@@ -50,7 +50,7 @@
 
 @media screen and (max-width: 600px) {
   #slide_title_text {
-    font-size: 40pt !important;
+    font-size: 50pt !important;
   }
 
   .typed-cursor {

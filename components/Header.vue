@@ -42,13 +42,8 @@
       <v-icon>mdi-dots-vertical-circle</v-icon>
     </v-btn>
 
-    <template v-if="extentionTitle" v-slot:extension class="primary darken-3">
-      <v-toolbar-title class="d-flex flex-row pr-7">
-        <v-img v-if="false" src="/icon.png" max-height="45px" max-width="45px" />
-        <span class="py-2 pl-2 headline font-weight-bold">{{ extentionTitle }}</span>
-      </v-toolbar-title>
-
-      <v-tabs v-if="link_show">
+    <template v-if="extentionTitle" v-slot:extension>
+      <v-tabs next-icon="mdi-arrow-right" prev-icon="mdi-arrow-left">
         <v-tab
           v-for="(link, key) in extentionLink"
           :key="`submenu-${key}`"
@@ -64,12 +59,6 @@
           {{ link.name }}
         </v-tab>
       </v-tabs>
-
-      <v-spacer />
-
-      <v-btn light class="lime" tile depressed href="//host.albasyir.com" target="_blank">
-        <v-icon left>mdi-account</v-icon>Login
-      </v-btn>
     </template>
   </v-app-bar>
 </template>

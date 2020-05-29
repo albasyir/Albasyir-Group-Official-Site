@@ -9,6 +9,7 @@
 
 <template>
   <div>
+    <cart :activate="cartActivation" />
     <nuxt-child />
   </div>
 </template>
@@ -17,8 +18,9 @@
 import { Vue, Component } from "nuxt-property-decorator";
 
 import { linkInterface } from "@/components/Header.vue";
+import Cart from "@/components/Hosting/Cart.vue";
 
-@Component
+@Component({ components: { Cart } })
 export default class HostingTemplate extends Vue {
   title: string = "ALbasyir Host";
   endpoint: string = "/hosting";
@@ -33,18 +35,30 @@ export default class HostingTemplate extends Vue {
       icon: "mdi-earth"
     },
     {
-      name: "Server",
+      name: "Hosting",
+      icon: "mdi-server-network"
+    },
+    {
+      name: "VPS",
       icon: "mdi-server"
     },
     {
-      name: "Lamda",
-      icon: "mdi-math-integral"
+      name: "Mail Host",
+      icon: "mdi-mail"
     },
     {
-      name: "Reseller",
-      icon: "mdi-cash-plus"
+      name: "Mail Host",
+      icon: "mdi-mail"
+    },
+    {
+      name: "Mail Host",
+      icon: "mdi-mail"
     }
   ];
+
+  get cartActivation() {
+    return this.$store.state.hosting.Cart.active;
+  }
 
   createHeaderMenu() {
     this.$store.commit("layout/Header/setExtentionTitle", "Host");
@@ -65,6 +79,10 @@ export default class HostingTemplate extends Vue {
   beforeDestroy() {
     this.$store.commit("layout/Header/setExtentionTitle");
     this.$store.commit("layout/Header/deleteEextentionLink");
+  }
+
+  mounted() {
+    console.log(this.cartActivation);
   }
 }
 </script>

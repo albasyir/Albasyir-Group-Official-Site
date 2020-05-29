@@ -1,14 +1,11 @@
 <template>
-  <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-    <template v-slot:activator="{ on }">
-      <slot name="activator" :on="on" />
-    </template>
+  <v-dialog v-model="activate" fullscreen hide-overlay transition="dialog-bottom-transition">
     <v-card flat>
       <v-toolbar dark color="primary">
         <v-toolbar-title>Order</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
-          <v-btn dark text @click="dialog = false">Tutup</v-btn>
+          <v-btn dark text @click="closeCard">Tutup</v-btn>
         </v-toolbar-items>
       </v-toolbar>
 
@@ -49,28 +46,18 @@
               />
             </div>
           </div>
-          <div class="d-flex flex-row flex-wrap" v-if="apiDomainAvaiable.length > 0">
-            <v-card
-              v-for="(row, key) in apiDomainAvaiable"
-              :key="key"
-              max-width="300"
-              outlined
-              class="ma-2"
-            >
-              <v-list-item three-line>
-                <v-list-item-content>
-                  <div class="overline mb-2">Register</div>
-                  <v-list-item-subtitle class="headline">{{ row.name }}</v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-
-              <v-card-actions>
-                <v-btn color="primary" tile>Pilih Ini</v-btn>
-              </v-card-actions>
+          <div
+            class="d-flex flex-row flex-wrap"
+            v-if="form.domain.onsearch || apiDomainAvaiable.length > 0"
+          >
+            <v-card v-for="(row, key) in apiDomainAvaiable" :key="key" outlined class="ma-2">
+              <v-card-title>{{ row.period }}</v-card-title>
+              <v-card-subtitle>Register</v-card-subtitle>
+              <v-card-text>Rp. {{ row.price }} ,-</v-card-text>
             </v-card>
           </div>
           <div>
-            <v-btn text @click="paging++" :loading="form.domain.onsearch">Tanpa Domain</v-btn>
+            <v-btn text @click="paging++" :loading="form.domain.onsearch">Punya Sendiri</v-btn>
             <v-btn text @click="paging--">Kembali</v-btn>
           </div>
         </v-stepper-content>
@@ -91,19 +78,19 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "nuxt-property-decorator";
+import { Vue, Component, Prop } from "nuxt-property-decorator";
 
-interface apiDomainCheckerPricing {
-  name: string;
-  price: string;
+interface apiDomainPrice {
+  period: string;
+  price: number;
 }
 
 interface apiDomainChecker {
   available: boolean;
-  result: Array<apiDomainCheckerPricing>;
+  result: Array<apiDomainPrice>;
 }
 
-export interface domainInterface extends apiDomainCheckerPricing {
+export interface domainInterface extends apiDomainPrice {
   domain: string; // misal albasyir.com
   eppCode?: string; // kalau domainya transfer
   contract: string; // periode, misal 1 tahun
@@ -121,6 +108,8 @@ export interface choiceInterface {
 
 @Component
 export default class HostingCart extends Vue {
+  @Prop({ type: Boolean, default: false }) activate!: boolean;
+
   userChoice: choiceInterface = {};
 
   form: any = {
@@ -131,11 +120,14 @@ export default class HostingCart extends Vue {
     }
   };
 
-  apiDomainAvaiable: Array<apiDomainCheckerPricing> = [];
+  apiDomainAvaiable: Array<apiDomainPrice> = [];
 
   ltdList: Array<string> = [];
-  dialog: boolean = false;
   paging: number = 1;
+
+  closeCard(): void {
+    this.$emit("activate", false);
+  }
 
   getLtd(): void {
     let getData: Promise<Response> = fetch(
@@ -185,6 +177,7 @@ export default class HostingCart extends Vue {
 
         if (data.available) {
           this.apiDomainAvaiable = data.result;
+        } else {
         }
 
         this.form.domain.onsearch = false;
