@@ -5,10 +5,4 @@ import { VuexModule, Module, Mutation } from "vuex-module-decorators";
   stateFactory: true,
   namespaced: true
 })
-export default class Card extends VuexModule {
-  active: Boolean = false;
-
-  @Mutation toggle(newCondition?: boolean) {
-    this.active = !!newCondition;
-  }
-}
+export default class Card extends VuexModule {}

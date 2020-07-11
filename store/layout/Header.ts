@@ -7,6 +7,7 @@ export default class Header extends VuexModule {
   position: string = "sticky";
   height: string = "65px";
 
+  extentionLinkShow: boolean = true;
   extentionTitle: string | undefined = undefined;
   extentionLink: object[] = [];
 
@@ -43,5 +44,11 @@ export default class Header extends VuexModule {
   @Mutation
   setPosition(newPosition?: string) {
     this.position = newPosition || "sticky";
+  }
+
+  @Mutation
+  toggleExtentionLink(newCondition?: boolean) {
+    this.extentionLinkShow =
+      newCondition === undefined ? !this.extentionLinkShow : newCondition;
   }
 }

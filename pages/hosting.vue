@@ -17,14 +17,18 @@
 <script lang="ts">
 import { Vue, Component } from "nuxt-property-decorator";
 
-import { linkInterface } from "@/components/Header.vue";
-import Cart from "@/components/Hosting/Cart.vue";
+import { HeaderLinkInterface } from "@/components/Header.vue";
 
-@Component({ components: { Cart } })
+@Component({
+  head: {
+    titleTemplate: "%s - Albasyir Host"
+  }
+})
 export default class HostingTemplate extends Vue {
   title: string = "ALbasyir Host";
   endpoint: string = "/hosting";
-  headerRoute: Array<linkInterface> = [
+
+  headerRoute: Array<HeaderLinkInterface> = [
     {
       name: "Penawaran",
       ref: "/",
@@ -41,18 +45,6 @@ export default class HostingTemplate extends Vue {
     {
       name: "VPS",
       icon: "mdi-server"
-    },
-    {
-      name: "Mail Host",
-      icon: "mdi-mail"
-    },
-    {
-      name: "Mail Host",
-      icon: "mdi-mail"
-    },
-    {
-      name: "Mail Host",
-      icon: "mdi-mail"
     }
   ];
 

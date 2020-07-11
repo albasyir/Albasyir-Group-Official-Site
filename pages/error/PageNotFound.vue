@@ -1,20 +1,15 @@
 <template>
-  <v-container class='py-5 mt-5'>
-    <v-row class='py-5 mt-5'>
-      <v-col>
-        <div class='py-5'>
-          <h1 class='display-3 font-weight-bold pt-5 mt-5'>
-            <span class='primary--text'>Halaman Tidak Ditemukan</span>
-          </h1>
+  <v-container class="py-5 my-5">
+    <v-row>
+      <v-col cols="12" sm="6">
+        <v-img src="/illustration/404.svg" />
+      </v-col>
+      <v-col cols="12" sm="6" class="d-flex justify-center align-content-center">
+        <div>
+          <h1 class="primary--text">Halaman Tidak Ditemukan</h1>
+          <p>Maaf, seharusnya ini tidak terjadi, kami harap untuk dimaklumi dan coba kunjungi halaman lainnya...</p>
+          <v-btn color="primary" to="/" nuxt>Ke Menu Utama</v-btn>
         </div>
-        <p>
-          Kami tidak yakin jika halaman ini tujuanya, mohon coba menu lain..
-        </p>
-        <p>
-          <v-btn color="primary" nuxt to="/">
-            Kembali ke beranda
-          </v-btn>
-        </p>
       </v-col>
     </v-row>
   </v-container>
@@ -26,7 +21,7 @@ import { Vue, Component } from "nuxt-property-decorator";
 @Component
 export default class PageNotFound extends Vue {
   mounted() {
-    this.$store.commit("layout/Header/setPosition", "fixed");
+    this.$store.commit("layout/Header/setPosition", "sticky");
   }
 
   beforeDestroy() {

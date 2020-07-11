@@ -10,7 +10,7 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 
-import Header, { linkInterface } from "@/components/Header.vue";
+import Header, { HeaderLinkInterface } from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 import Drawer from "@/components/Drawer.vue";
 
@@ -18,7 +18,7 @@ import Drawer from "@/components/Drawer.vue";
   components: { Header, Footer, Drawer }
 })
 export default class Template extends Vue {
-  link: Array<linkInterface> = [
+  link: Array<HeaderLinkInterface> = [
     {
       name: "Utama",
       icon: "mdi-home",
@@ -29,21 +29,9 @@ export default class Template extends Vue {
       icon: "mdi-server",
       ref: "/hosting"
     },
-    /*
     {
-      name: 'Kinerja',
-      icon: 'mdi-home-outline',
-      ref: undefined
-    },
-    {
-      name: 'Solusi',
-      icon: 'mdi-lightbulb-on-outline',
-      ref: '/solusi'
-    },
-    */
-    {
-      name: "Servis",
-      icon: "mdi-cog",
+      name: "Software",
+      icon: "mdi-laptop",
       ref: "/servis"
     },
     {

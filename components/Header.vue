@@ -15,7 +15,7 @@
   >
     <v-toolbar-title class="d-flex flex-row">
       <v-img src="/icon.png" max-height="45px" max-width="45px" />
-      <span class="py-2 pl-2 headline font-weight-bold">Albasyir</span>
+      <span class="py-2 pl-2 headline font-weight-bold">Albasyir {{ extentionTitle }}</span>
     </v-toolbar-title>
 
     <v-spacer />
@@ -42,16 +42,14 @@
       <v-icon>mdi-dots-vertical-circle</v-icon>
     </v-btn>
 
-    <template v-if="extentionTitle" v-slot:extension>
-      <v-tabs next-icon="mdi-arrow-right" prev-icon="mdi-arrow-left">
+    <template v-if="extentionLink.length > 1" v-slot:extension>
+      <v-tabs align-with-title>
         <v-tab
           v-for="(link, key) in extentionLink"
           :key="`submenu-${key}`"
           :disabled="!link.ref"
           :to="link.ref"
-          :height="headerHeight"
           color="transparent"
-          exact
           v-bind="link.bind"
           class="white--text"
         >
@@ -66,7 +64,7 @@
 <script lang="ts">
 import { Vue, Prop, Component } from "nuxt-property-decorator";
 
-export interface linkInterface {
+export interface HeaderLinkInterface {
   name: String;
   icon?: String;
   ref?: String;
@@ -107,7 +105,11 @@ export default class Header extends Vue {
     return this.$store.state.layout.Header.extentionTitle;
   }
 
-  get extentionLink(): linkInterface[] {
+  get extentionLink(): HeaderLinkInterface[] {
+    return this.$store.state.layout.Header.extentionLink;
+  }
+
+  get extentionShow() {
     return this.$store.state.layout.Header.extentionLink;
   }
 }

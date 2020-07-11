@@ -13,7 +13,12 @@ import { Vue, Component } from "nuxt-property-decorator";
 
 import Slider from "@/components/Slider/SimpleText.vue";
 
-@Component({ components: { Slider } })
+@Component({
+  components: { Slider },
+  head: {
+    title: "Kami Punya Solusi!"
+  }
+})
 export default class LandingPage extends Vue {
   slides: any = [
     {

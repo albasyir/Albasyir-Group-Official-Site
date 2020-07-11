@@ -1,6 +1,6 @@
-import colors from 'vuetify/es5/util/colors'
+import colors from "vuetify/es5/util/colors";
 
-require('dotenv').config()
+require("dotenv").config();
 
 export default {
   /**
@@ -10,9 +10,8 @@ export default {
    */
   server: {
     port: 3000, // default: 3000
-    host: '0.0.0.0', // default: localhost
+    host: "0.0.0.0" // default: localhost
   },
-
 
   /**
    *
@@ -20,12 +19,12 @@ export default {
    *
    */
   router: {
-    extendRoutes (routes, resolve) {
+    extendRoutes(routes, resolve) {
       routes.push({
-        name: '404',
-        path: '*',
-        component: resolve(__dirname, 'pages/error/PageNotFound.vue')
-      })
+        name: "404",
+        path: "*",
+        component: resolve(__dirname, "pages/error/PageNotFound.vue")
+      });
     }
   },
 
@@ -34,8 +33,7 @@ export default {
    * Page mode config
    *
    */
-  mode: 'spa',
-
+  mode: "spa",
 
   /**
    *
@@ -43,57 +41,70 @@ export default {
    *
    */
   head: {
-    titleTemplate: '%s - Albasyir Group',
-    title: "Partner IT Anda",
+    title: process.env.TITLE_GLOBAL,
+    titleTemplate: process.env.TITLE_TEMPLATE,
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: "Kami adalah konsultan, pembuat, peracang kebutuhan IT perusahaan anda" }
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { charset: process.env.WEB_CHARSET },
+      { name: "robots", content: process.env.WEB_ROBOTS },
+
+      {
+        hid: "description",
+        name: "description",
+        content: process.env.WEB_DESC
+      },
+      {
+        name: "keywords",
+        content: process.env.WEB_TAG
+      },
+
+      /* OG */
+      { property: "og:url", content: process.env.WEB_URL },
+      { property: "og:title", content: process.env.WEB_TITLE },
+      { property: "og:description", content: process.env.WEB_DESC },
+
+      /* dcterms */
+      {
+        name: "dcterms.subject",
+        content: process.env.WEB_DESC
+      },
+      { name: "dcterms.type", content: process.env.WEB_TYPE },
+      { name: "dcterms.language", content: process.env.WEB_COUNTRY_CODE }
     ],
     link: [
-      { rel: 'icon', type: 'image/png', href: '/icon.png' }
+      { rel: "icon", type: "image/png", href: "/icon.png" },
+      { rel: "canonical", href: process.env.WEB_URL }
     ]
   },
-
-
 
   /**
    *
    * Loading Settings
    *
    */
-  loading: '@/components/Loading.vue',
-  loadingIndicator: '@/components/SPAPripare.html',
-
+  loading: "@/components/Loading.vue",
+  loadingIndicator: "@/components/SPAPripare.html",
 
   /**
    *
    * Global CSS
    *
    */
-  css: [
-  ],
-
+  css: [],
 
   /**
    *
    * Plugin
    *
    */
-  plugins: [
-  ],
-
+  plugins: [],
 
   /**
    *
    * Nuxt.js dev-modules
    *
    */
-  buildModules: [
-    '@nuxt/typescript-build',
-    '@nuxtjs/vuetify',
-  ],
-
+  buildModules: ["@nuxt/typescript-build", "@nuxtjs/vuetify"],
 
   /**
    *
@@ -102,12 +113,12 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
+    "@nuxtjs/axios",
 
-    '@nuxtjs/pwa',
+    "@nuxtjs/pwa",
 
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    "@nuxtjs/dotenv"
   ],
 
   build: {
@@ -120,8 +131,7 @@ export default {
    * See https://axios.nuxtjs.org/options
    *
    */
-  axios: {
-  },
+  axios: {},
 
   /**
    *
@@ -130,7 +140,7 @@ export default {
    *
    */
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
+    customVariables: ["~/assets/variables.scss"],
     theme: {
       dark: false,
       themes: {
@@ -147,7 +157,6 @@ export default {
     }
   },
 
-
   /**
    *
    * Build configuration
@@ -159,7 +168,6 @@ export default {
      * You can extend webpack config here
      *
      */
-    extend (config, ctx) {
-    }
+    extend(config, ctx) {}
   }
-}
+};
